@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package tempsensor;
+option go_package="./tempsensorpb";
+
+message DataRequest {
+    string session = 1;
+    enum Format {
+        F = 0;
+        C = 1;
+    }
+    Format format = 2;
+}
+
+message DataResponse {
+    string session = 1;
+    float temp = 2;
+    enum Format {
+        F = 0;
+        C = 1;
+    }
+    Format format = 3;
+}
+
+service TempSensorService {
+    rpc GetData(DataRequest) returns (stream DataResponse) {};
+}
